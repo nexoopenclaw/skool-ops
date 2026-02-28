@@ -1,0 +1,44 @@
+import { AppShell } from "@/components/shell";
+import { Card, Panel } from "@/components/ui";
+import { actionQueue, members } from "@/lib/mock-data";
+import { getKpis } from "@/lib/kpi";
+
+export default function Home() {
+  const kpi = getKpis();
+
+  return (
+    <AppShell title="Home Dashboard">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <Card title="Members" value={String(kpi.totalMembers)} />
+        <Card title="Churn Risk" value={String(kpi.churnRisk)} hint="Needs immediate follow-up" />
+        <Card title="Annual Upgrade %" value={`${kpi.annualPct}%`} />
+        <Card title="Content Completion" value={`${kpi.contentCompletion}%`} />
+        <Card title="Pending Followups" value={String(kpi.pendingFollowups)} />
+      </div>
+
+      <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        <Panel title="Top Risk Members">
+          <div className="space-y-2">
+            {members.filter((m) => m.status === "at_risk").map((m) => (
+              <div key={m.id} className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3 text-sm">
+                <p className="font-medium">{m.name}</p>
+                <p className="text-slate-400">Last seen {m.lastSeenDays} days ago • Progress {m.progressPct}%</p>
+              </div>
+            ))}
+          </div>
+        </Panel>
+
+        <Panel title="Next Revenue Actions">
+          <div className="space-y-2">
+            {actionQueue.slice(0, 3).map((task) => (
+              <div key={task.id} className="rounded-xl border border-slate-700 p-3 text-sm">
+                <p className="font-medium">{task.title}</p>
+                <p className="text-slate-400">{task.owner} • {task.dueAt}</p>
+              </div>
+            ))}
+          </div>
+        </Panel>
+      </div>
+    </AppShell>
+  );
+}
