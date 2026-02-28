@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/shell";
-import { Panel } from "@/components/ui";
+import { Badge, Panel } from "@/components/ui";
 import { contentPipeline } from "@/lib/mock-data";
 
 export default function ContentPage() {
@@ -11,7 +11,7 @@ export default function ContentPage() {
             <div key={item.id} className="rounded-xl border border-slate-800 p-3">
               <div className="mb-2 flex items-center justify-between">
                 <p className="font-medium">{item.title}</p>
-                <p className="text-xs uppercase text-slate-400">{item.stage}</p>
+                <Badge tone={item.stage === "published" ? "emerald" : item.stage === "production" ? "indigo" : "amber"}>{item.stage}</Badge>
               </div>
               <div className="h-2 rounded bg-slate-800">
                 <div className="h-2 rounded bg-cyan-400" style={{ width: `${item.completionPct}%` }} />

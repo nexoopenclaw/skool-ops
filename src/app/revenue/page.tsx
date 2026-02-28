@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/shell";
-import { Card, Panel } from "@/components/ui";
+import { Badge, Card, Panel } from "@/components/ui";
 import { getKpis } from "@/lib/kpi";
 import { members } from "@/lib/mock-data";
 
@@ -24,7 +24,7 @@ export default function RevenuePage() {
               <div key={member.id} className="rounded-xl border border-slate-800 p-3 text-sm">
                 <div className="flex items-center justify-between">
                   <p className="font-medium">{member.name}</p>
-                  <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-0.5 text-[10px] text-cyan-200">target</span>
+                  <Badge tone="cyan">target</Badge>
                 </div>
                 <p className="mt-1 text-slate-400">Current MRR: ${member.mrrContribution} • Progress: {member.progressPct}%</p>
               </div>

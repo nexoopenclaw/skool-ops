@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/shell";
-import { Panel } from "@/components/ui";
+import { Badge, Panel } from "@/components/ui";
 import { actionQueue } from "@/lib/mock-data";
 
 export default function ActionsPage() {
@@ -24,9 +24,9 @@ export default function ActionsPage() {
                 <div key={task.id} className="rounded-xl border border-slate-800 p-3">
                   <div className="flex items-center justify-between">
                     <p className="font-medium">{task.title}</p>
-                    <div className="flex gap-2 text-[10px] uppercase">
-                      <span className="rounded-full border border-slate-600 px-2 py-0.5 text-slate-300">{task.priority}</span>
-                      <span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 text-indigo-200">{task.status}</span>
+                    <div className="flex gap-2">
+                      <Badge tone={task.priority === "high" ? "rose" : task.priority === "medium" ? "amber" : "slate"}>{task.priority}</Badge>
+                      <Badge tone={task.status === "in_progress" ? "indigo" : task.status === "done" ? "emerald" : "slate"}>{task.status}</Badge>
                     </div>
                   </div>
                   <p className="mt-1 text-sm text-slate-400">

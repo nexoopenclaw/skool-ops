@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 const nav = [
   { href: "/", label: "Dashboard" },
   { href: "/members", label: "Members" },
+  { href: "/conversions", label: "Conversions" },
   { href: "/content", label: "Content" },
   { href: "/revenue", label: "Revenue" },
   { href: "/actions", label: "Action Queue" },

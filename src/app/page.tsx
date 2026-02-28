@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/shell";
-import { Card, Panel } from "@/components/ui";
+import { Badge, Card, Panel } from "@/components/ui";
 import { actionQueue, members } from "@/lib/mock-data";
 import { getKpis } from "@/lib/kpi";
 
@@ -58,7 +58,7 @@ export default function Home() {
               <div key={task.id} className="rounded-xl border border-slate-700 p-3 text-sm">
                 <div className="flex items-center justify-between">
                   <p className="font-medium">{task.title}</p>
-                  <span className="rounded-full border border-slate-600 px-2 py-0.5 text-[10px] uppercase text-slate-300">{task.priority}</span>
+                  <Badge tone={task.priority === "high" ? "rose" : task.priority === "medium" ? "amber" : "slate"}>{task.priority}</Badge>
                 </div>
                 <p className="mt-1 text-slate-400">{task.owner} • {task.dueAt}</p>
               </div>

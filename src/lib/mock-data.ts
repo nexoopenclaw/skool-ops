@@ -1,4 +1,4 @@
-import { ActionTask, ContentItem, Member } from "@/lib/types";
+import { ActionTask, ContentItem, ConversionEvent, Member } from "@/lib/types";
 
 export const members: Member[] = [
   { id: "m1", name: "Ava Ruiz", email: "ava@creator.com", status: "active", plan: "annual", joinedAt: "2025-10-14", lastSeenDays: 1, progressPct: 82, mrrContribution: 119 },
@@ -6,6 +6,59 @@ export const members: Member[] = [
   { id: "m3", name: "Mina Costa", email: "mina@studio.co", status: "active", plan: "monthly", joinedAt: "2026-01-09", lastSeenDays: 3, progressPct: 66, mrrContribution: 49 },
   { id: "m4", name: "Jon Hale", email: "jon@ops.dev", status: "paused", plan: "monthly", joinedAt: "2025-09-25", lastSeenDays: 28, progressPct: 18, mrrContribution: 0 },
   { id: "m5", name: "Nora Bell", email: "nora@build.ai", status: "at_risk", plan: "annual", joinedAt: "2025-07-03", lastSeenDays: 9, progressPct: 41, mrrContribution: 109 },
+];
+
+export const conversionEvents: ConversionEvent[] = [
+  {
+    id: "cv1",
+    memberName: "Mina Costa",
+    eventType: "upgrade",
+    fromPlan: "monthly",
+    toPlan: "annual",
+    value: 588,
+    channel: "dm",
+    createdAt: "2026-02-24",
+  },
+  {
+    id: "cv2",
+    memberName: "Leo Park",
+    eventType: "reactivation",
+    fromPlan: "trial",
+    toPlan: "monthly",
+    value: 49,
+    channel: "email",
+    createdAt: "2026-02-22",
+  },
+  {
+    id: "cv3",
+    memberName: "Ava Ruiz",
+    eventType: "upgrade",
+    fromPlan: "monthly",
+    toPlan: "annual",
+    value: 588,
+    channel: "webinar",
+    createdAt: "2026-02-20",
+  },
+  {
+    id: "cv4",
+    memberName: "Iris Stone",
+    eventType: "new_member",
+    fromPlan: "trial",
+    toPlan: "monthly",
+    value: 49,
+    channel: "community",
+    createdAt: "2026-02-19",
+  },
+  {
+    id: "cv5",
+    memberName: "Noah Lane",
+    eventType: "new_member",
+    fromPlan: "trial",
+    toPlan: "annual",
+    value: 699,
+    channel: "webinar",
+    createdAt: "2026-02-15",
+  },
 ];
 
 export const contentPipeline: ContentItem[] = [

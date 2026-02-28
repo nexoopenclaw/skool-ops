@@ -30,3 +30,14 @@ export interface ActionTask {
   relatedMember?: string;
   status: "todo" | "in_progress" | "done";
 }
+
+export interface ConversionEvent {
+  id: string;
+  memberName: string;
+  eventType: "upgrade" | "reactivation" | "new_member";
+  fromPlan: "trial" | Plan;
+  toPlan: Plan;
+  value: number;
+  channel: "dm" | "webinar" | "email" | "community";
+  createdAt: string;
+}
