@@ -10,16 +10,17 @@ export default function Home() {
 
   return (
     <AppShell title="Home Dashboard">
+      <div className="section-accent mb-4" />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-        <Card title="Members" value={String(kpi.totalMembers)} />
+        <Card title="Members" value={String(kpi.totalMembers)} highlight />
         <Card title="Churn Risk" value={String(kpi.churnRisk)} hint="Needs immediate follow-up" />
-        <Card title="Annual Upgrade %" value={`${kpi.annualPct}%`} />
+        <Card title="Annual Upgrade %" value={`${kpi.annualPct}%`} highlight />
         <Card title="Content Completion" value={`${kpi.contentCompletion}%`} />
         <Card title="Pending Followups" value={String(kpi.pendingFollowups)} />
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Panel title="Top Risk Members">
+        <Panel title="Top Risk Members" accent>
           <div className="space-y-2">
             {atRisk.map((m) => (
               <div key={m.id} className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3 text-sm">
@@ -33,7 +34,7 @@ export default function Home() {
         <Panel title="Annual Upgrade Opportunities">
           <div className="space-y-2">
             {annualUpgradeTargets.map((m) => (
-              <div key={m.id} className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 text-sm">
+              <div key={m.id} className="rounded-xl border brand-border brand-surface p-3 text-sm">
                 <p className="font-medium">{m.name}</p>
                 <p className="text-slate-300">Monthly → Annual • MRR ${m.mrrContribution}</p>
               </div>
@@ -52,15 +53,17 @@ export default function Home() {
       </div>
 
       <div className="mt-6">
-        <Panel title="Next Revenue Actions">
+        <Panel title="Next Revenue Actions" accent>
           <div className="grid gap-2 md:grid-cols-2">
             {actionQueue.slice(0, 4).map((task) => (
               <div key={task.id} className="rounded-xl border border-slate-700 p-3 text-sm">
                 <div className="flex items-center justify-between">
                   <p className="font-medium">{task.title}</p>
-                  <Badge tone={task.priority === "high" ? "rose" : task.priority === "medium" ? "amber" : "slate"}>{task.priority}</Badge>
+                  <Badge tone={task.priority === "high" ? "rose" : task.priority === "medium" ? "amber" : "brand"}>{task.priority}</Badge>
                 </div>
-                <p className="mt-1 text-slate-400">{task.owner} • {task.dueAt}</p>
+                <p className="mt-1 text-slate-400">
+                  {task.owner} • {task.dueAt}
+                </p>
               </div>
             ))}
           </div>

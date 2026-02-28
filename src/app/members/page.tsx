@@ -2,7 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import { AppShell } from "@/components/shell";
-import { Badge, Panel } from "@/components/ui";
+import { Badge, Panel, PrimaryButton } from "@/components/ui";
 import { members as seedMembers } from "@/lib/mock-data";
 import { Member, Plan } from "@/lib/types";
 
@@ -22,15 +22,17 @@ export default function MembersPage() {
   const [rows, setRows] = useState<Member[]>(seedMembers);
   const [planFilter, setPlanFilter] = useState<"all" | Plan>("all");
   const [statusFilter, setStatusFilter] = useState<"all" | Member["status"]>("all");
+  const [query, setQuery] = useState("");
   const [form, setForm] = useState({ name: "", email: "", plan: "monthly" as Plan, status: "active" as Member["status"] });
 
   const visibleMembers = useMemo(() => {
     return rows.filter((m) => {
       const planOk = planFilter === "all" || m.plan === planFilter;
       const statusOk = statusFilter === "all" || m.status === statusFilter;
-      return planOk && statusOk;
+      const queryOk = !query.trim() || `${m.name} ${m.email}`.toLowerCase().includes(query.trim().toLowerCase());
+      return planOk && statusOk && queryOk;
     });
-  }, [rows, planFilter, statusFilter]);
+  }, [rows, planFilter, statusFilter, query]);
 
   const segments = useMemo(
     () => ({
@@ -63,8 +65,9 @@ export default function MembersPage() {
 
   return (
     <AppShell title="Members Module">
+      <div className="section-accent mb-4" />
       <div className="grid gap-4 md:grid-cols-3">
-        <Panel title="Health Segments">
+        <Panel title="Health Segments" accent>
           <div className="flex flex-wrap gap-2">
             <Badge tone="emerald">Active: {segments.active}</Badge>
             <Badge tone="amber">At Risk: {segments.atRisk}</Badge>
@@ -93,6 +96,12 @@ export default function MembersPage() {
               <option value="at_risk">At risk</option>
               <option value="paused">Paused</option>
             </select>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search name/email"
+              className="min-w-44 rounded-lg border border-slate-700 bg-slate-900 px-3 py-2"
+            />
           </div>
         </Panel>
 
@@ -130,15 +139,13 @@ export default function MembersPage() {
                 <option value="paused">Paused</option>
               </select>
             </div>
-            <button className="rounded-lg border border-cyan-500/50 bg-cyan-500/10 px-3 py-2 text-cyan-200 transition hover:bg-cyan-500/20">
-              Add member
-            </button>
+            <PrimaryButton className="w-full">Add member</PrimaryButton>
           </form>
         </Panel>
       </div>
 
       <div className="mt-6">
-        <Panel title="Member Health, Plans & Actions">
+        <Panel title={`Member Health, Plans & Actions (${visibleMembers.length} shown)`} accent>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="text-slate-400">
@@ -160,15 +167,13 @@ export default function MembersPage() {
                       <Badge tone={statusTone[m.status]}>{statusLabel[m.status]}</Badge>
                     </td>
                     <td>
-                      <Badge tone={m.plan === "annual" ? "indigo" : "cyan"}>{m.plan}</Badge>
+                      <Badge tone={m.plan === "annual" ? "brand" : "cyan"}>{m.plan}</Badge>
                     </td>
-                    <td>
-                      {m.lastSeenDays > 7 ? <Badge tone="amber">⚠ Inactive</Badge> : <Badge tone="emerald">Healthy</Badge>}
-                    </td>
+                    <td>{m.lastSeenDays > 7 ? <Badge tone="amber">⚠ Inactive</Badge> : <Badge tone="emerald">Healthy</Badge>}</td>
                     <td>
                       <div className="flex flex-wrap gap-1.5 text-xs">
                         <button className="rounded-md border border-slate-700 px-2 py-1 text-slate-200">Follow-up</button>
-                        <button className="rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-1 text-cyan-200">Upgrade</button>
+                        <button className="rounded-md brand-button px-2 py-1">Upgrade</button>
                         <button className="rounded-md border border-amber-500/30 bg-amber-500/10 px-2 py-1 text-amber-200">Reactivate</button>
                       </div>
                     </td>

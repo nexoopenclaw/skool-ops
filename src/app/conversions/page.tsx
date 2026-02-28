@@ -3,7 +3,7 @@ import { Badge, Card, Panel } from "@/components/ui";
 import { conversionEvents } from "@/lib/mock-data";
 
 const eventTone = {
-  upgrade: "indigo",
+  upgrade: "brand",
   reactivation: "amber",
   new_member: "emerald",
 } as const;
@@ -16,19 +16,26 @@ export default function ConversionsPage() {
 
   return (
     <AppShell title="Conversion Tracker">
+      <div className="section-accent mb-4" />
       <div className="grid gap-4 md:grid-cols-4">
         <Card title="Tracked Events" value={String(conversionEvents.length)} />
-        <Card title="Total Conversion Value" value={`$${totalValue}`} />
-        <Card title="Upgrades" value={String(upgrades)} hint="Monthly → Annual" />
+        <Card title="Total Conversion Value" value={`$${totalValue}`} highlight />
+        <Card title="Upgrades" value={String(upgrades)} hint="Monthly → Annual" highlight />
         <Card title="Reactivations" value={String(reactivations)} hint="Recovered churn/trial" />
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Panel title="Event Mix">
+        <Panel title="Event Mix" accent>
           <div className="space-y-2 text-sm text-slate-300">
-            <p>New members: <span className="font-semibold text-white">{newMembers}</span></p>
-            <p>Upgrades: <span className="font-semibold text-white">{upgrades}</span></p>
-            <p>Reactivations: <span className="font-semibold text-white">{reactivations}</span></p>
+            <p>
+              New members: <span className="font-semibold text-white">{newMembers}</span>
+            </p>
+            <p>
+              Upgrades: <span className="font-semibold brand-text">{upgrades}</span>
+            </p>
+            <p>
+              Reactivations: <span className="font-semibold text-white">{reactivations}</span>
+            </p>
           </div>
         </Panel>
 

@@ -10,21 +10,22 @@ export default function RevenuePage() {
 
   return (
     <AppShell title="Revenue Module">
+      <div className="section-accent mb-4" />
       <div className="grid gap-4 md:grid-cols-4">
-        <Card title="MRR" value={`$${kpi.mrr}`} hint="Current monthly recurring revenue" />
+        <Card title="MRR" value={`$${kpi.mrr}`} hint="Current monthly recurring revenue" highlight />
         <Card title="Annual Conversion Opps" value={String(kpi.annualOpportunities)} />
-        <Card title="90-Day Forecast" value={`$${kpi.forecast90}`} />
+        <Card title="90-Day Forecast" value={`$${kpi.forecast90}`} highlight />
         <Card title="Annual Upside" value={`$${yearlyUpside}`} hint="If monthly actives convert to annual" />
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        <Panel title="Conversion Targets (Monthly → Annual)">
+        <Panel title="Conversion Targets (Monthly → Annual)" accent>
           <div className="space-y-2">
             {monthlyActive.map((member) => (
               <div key={member.id} className="rounded-xl border border-slate-800 p-3 text-sm">
                 <div className="flex items-center justify-between">
                   <p className="font-medium">{member.name}</p>
-                  <Badge tone="cyan">target</Badge>
+                  <Badge tone="brand">target</Badge>
                 </div>
                 <p className="mt-1 text-slate-400">Current MRR: ${member.mrrContribution} • Progress: {member.progressPct}%</p>
               </div>
