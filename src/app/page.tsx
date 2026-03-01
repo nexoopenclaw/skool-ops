@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AppShell } from "@/components/shell";
 import { Badge, Card, Panel } from "@/components/ui";
 import { actionQueue, members } from "@/lib/mock-data";
@@ -17,6 +18,18 @@ export default function Home() {
         <Card title="Annual Upgrade %" value={`${kpi.annualPct}%`} highlight />
         <Card title="Content Completion" value={`${kpi.contentCompletion}%`} />
         <Card title="Pending Followups" value={String(kpi.pendingFollowups)} />
+      </div>
+
+      <div className="mt-4 rounded-2xl border brand-border brand-surface p-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] brand-text">Go Live</p>
+            <p className="text-sm text-slate-200">Definí pricing, checkout y launch desde la sección Offer.</p>
+          </div>
+          <Link href="/offer" className="brand-button rounded-lg px-3 py-2 text-sm">
+            Abrir Offer & Checkout
+          </Link>
+        </div>
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
